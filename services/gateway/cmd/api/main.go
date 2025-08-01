@@ -37,6 +37,7 @@ func main() {
 	gw := gateway.NewGateway(&cfg, r, logger)
 
 	http.HandleFunc("/health", gw.Health)
+	http.HandleFunc("/metrics", gw.Metrics)
 	http.HandleFunc("/swagger/", httpSwagger.WrapHandler)
 	http.Handle("/", gw)
 

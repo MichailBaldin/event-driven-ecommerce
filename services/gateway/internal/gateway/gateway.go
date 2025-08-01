@@ -8,7 +8,10 @@ import (
 	"services/gateway/internal/config"
 	"services/gateway/internal/router"
 
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"go.uber.org/zap"
+
+	"services/gateway/internal/metrics"
 )
 
 type Gateway struct {
@@ -16,6 +19,7 @@ type Gateway struct {
 	router  *router.Router
 	logger  *zap.Logger
 	version string
+	metrics *metrics.Metrics
 }
 
 type GatewayResponse struct {
@@ -46,6 +50,7 @@ func NewGateway(cfg *config.Config, r *router.Router, logger *zap.Logger) *Gatew
 		router:  r,
 		logger:  logger,
 		version: "v0.1.0",
+		metrics: metrics.NewMetrics(),
 	}
 }
 
@@ -84,6 +89,11 @@ func NewGateway(cfg *config.Config, r *router.Router, logger *zap.Logger) *Gatew
 // @Router /products/search [get]
 // @Router /users/create [post]
 func (g *Gateway) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	start := time.Now()
+	g.metrics.IncActiveRequests()
+
+	defer g.metrics.DecActiveRequests()
+
 	g.logger.Info("Gateway request received",
 		zap.String("method", r.Method),
 		zap.String("path", r.URL.Path),
@@ -92,6 +102,9 @@ func (g *Gateway) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	targetService, err := g.router.Route(r.URL.Path)
 	if err != nil {
+		duration := time.Since(start)
+		g.metrics.RecordRequest(r.Method, r.URL.Path, "404", "none", duration)
+
 		g.logger.Error("Failed to route request",
 			zap.String("path", r.URL.Path),
 			zap.Error(err),
@@ -110,9 +123,13 @@ func (g *Gateway) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	duration := time.Since(start)
+	g.metrics.RecordRequest(r.Method, r.URL.Path, "200", targetService, duration)
+
 	g.logger.Info("Request routed successfully",
 		zap.String("path", r.URL.Path),
 		zap.String("target_service", targetService),
+		zap.Duration("duration", duration),
 	)
 
 	w.Header().Set("Content-Type", "application/json")
@@ -151,4 +168,15 @@ func (g *Gateway) Health(w http.ResponseWriter, r *http.Request) {
 	}
 
 	json.NewEncoder(w).Encode(response)
+}
+
+// Metrics возвращает Prometheus метрики
+// @Summary Prometheus metrics
+// @Description Returns Prometheus metrics for monitoring
+// @Tags monitoring
+// @Produce text
+// @Success 200 {string} string "Prometheus metrics"
+// @Router /metrics [get]
+func (g *Gateway) Metrics(w http.ResponseWriter, r *http.Request) {
+	promhttp.Handler().ServeHTTP(w, r)
 }
