@@ -19,3 +19,13 @@ gateway-test:
 clean:
 	docker-compose down
 	docker system prune -f
+
+# Swagger commands
+gateway-swagger-gen:
+	cd services/gateway && swag init -g cmd/api/main.go -o docs
+
+gateway-swagger-dev: gateway-swagger-gen
+	cd services/gateway && PORT=8080 LOG_LEVEL=debug go run cmd/api/main.go
+
+gateway-swagger-open:
+	start http://localhost:8080/swagger/index.html

@@ -11,6 +11,10 @@ import (
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
+
+	_ "services/gateway/docs"
+
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 func main() {
@@ -32,6 +36,8 @@ func main() {
 	r := router.NewRouter()
 	gw := gateway.NewGateway(&cfg, r, logger)
 
+	http.HandleFunc("/health", gw.Health)
+	http.HandleFunc("/swagger/", httpSwagger.WrapHandler)
 	http.Handle("/", gw)
 
 	addr := ":" + cfg.Port

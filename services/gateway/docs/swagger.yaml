@@ -1,0 +1,259 @@
+definitions:
+  gateway.ErrorResponse:
+    properties:
+      code:
+        example: 404
+        type: integer
+      error:
+        example: 'unknown service for path: /unknown/path'
+        type: string
+      path:
+        example: /unknown/path
+        type: string
+    type: object
+  gateway.GatewayResponse:
+    properties:
+      message:
+        example: Gateway received request
+        type: string
+      method:
+        example: GET
+        type: string
+      path:
+        example: /users/123
+        type: string
+      target_service:
+        example: users
+        type: string
+      timestamp:
+        example: "2025-08-01T12:30:00Z"
+        type: string
+    type: object
+  gateway.HealthResponse:
+    properties:
+      service:
+        example: gateway
+        type: string
+      status:
+        example: ok
+        type: string
+      timestamp:
+        example: "2025-08-01T12:30:00Z"
+        type: string
+      version:
+        example: v0.1.0
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /health:
+    get:
+      consumes:
+      - application/json
+      description: Returns the health status of the Gateway service
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Gateway is healthy
+          schema:
+            $ref: '#/definitions/gateway.HealthResponse'
+      summary: Health check
+      tags:
+      - health
+  /products/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Routes HTTP requests to users or products microservices based on
+        path prefix
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully routed request
+          schema:
+            $ref: '#/definitions/gateway.GatewayResponse'
+        "404":
+          description: Unknown service path
+          schema:
+            $ref: '#/definitions/gateway.ErrorResponse'
+      summary: Route request to microservice
+      tags:
+      - routing
+    get:
+      consumes:
+      - application/json
+      description: Routes HTTP requests to users or products microservices based on
+        path prefix
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully routed request
+          schema:
+            $ref: '#/definitions/gateway.GatewayResponse'
+        "404":
+          description: Unknown service path
+          schema:
+            $ref: '#/definitions/gateway.ErrorResponse'
+      summary: Route request to microservice
+      tags:
+      - routing
+    post:
+      consumes:
+      - application/json
+      description: Routes HTTP requests to users or products microservices based on
+        path prefix
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully routed request
+          schema:
+            $ref: '#/definitions/gateway.GatewayResponse'
+        "404":
+          description: Unknown service path
+          schema:
+            $ref: '#/definitions/gateway.ErrorResponse'
+      summary: Route request to microservice
+      tags:
+      - routing
+    put:
+      consumes:
+      - application/json
+      description: Routes HTTP requests to users or products microservices based on
+        path prefix
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully routed request
+          schema:
+            $ref: '#/definitions/gateway.GatewayResponse'
+        "404":
+          description: Unknown service path
+          schema:
+            $ref: '#/definitions/gateway.ErrorResponse'
+      summary: Route request to microservice
+      tags:
+      - routing
+  /products/search:
+    get:
+      consumes:
+      - application/json
+      description: Routes HTTP requests to users or products microservices based on
+        path prefix
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully routed request
+          schema:
+            $ref: '#/definitions/gateway.GatewayResponse'
+        "404":
+          description: Unknown service path
+          schema:
+            $ref: '#/definitions/gateway.ErrorResponse'
+      summary: Route request to microservice
+      tags:
+      - routing
+  /users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Routes HTTP requests to users or products microservices based on
+        path prefix
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully routed request
+          schema:
+            $ref: '#/definitions/gateway.GatewayResponse'
+        "404":
+          description: Unknown service path
+          schema:
+            $ref: '#/definitions/gateway.ErrorResponse'
+      summary: Route request to microservice
+      tags:
+      - routing
+    get:
+      consumes:
+      - application/json
+      description: Routes HTTP requests to users or products microservices based on
+        path prefix
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully routed request
+          schema:
+            $ref: '#/definitions/gateway.GatewayResponse'
+        "404":
+          description: Unknown service path
+          schema:
+            $ref: '#/definitions/gateway.ErrorResponse'
+      summary: Route request to microservice
+      tags:
+      - routing
+    post:
+      consumes:
+      - application/json
+      description: Routes HTTP requests to users or products microservices based on
+        path prefix
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully routed request
+          schema:
+            $ref: '#/definitions/gateway.GatewayResponse'
+        "404":
+          description: Unknown service path
+          schema:
+            $ref: '#/definitions/gateway.ErrorResponse'
+      summary: Route request to microservice
+      tags:
+      - routing
+    put:
+      consumes:
+      - application/json
+      description: Routes HTTP requests to users or products microservices based on
+        path prefix
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully routed request
+          schema:
+            $ref: '#/definitions/gateway.GatewayResponse'
+        "404":
+          description: Unknown service path
+          schema:
+            $ref: '#/definitions/gateway.ErrorResponse'
+      summary: Route request to microservice
+      tags:
+      - routing
+  /users/create:
+    post:
+      consumes:
+      - application/json
+      description: Routes HTTP requests to users or products microservices based on
+        path prefix
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully routed request
+          schema:
+            $ref: '#/definitions/gateway.GatewayResponse'
+        "404":
+          description: Unknown service path
+          schema:
+            $ref: '#/definitions/gateway.ErrorResponse'
+      summary: Route request to microservice
+      tags:
+      - routing
+swagger: "2.0"

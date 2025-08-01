@@ -1,0 +1,374 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/health": {
+            "get": {
+                "description": "Returns the health status of the Gateway service",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "health"
+                ],
+                "summary": "Health check",
+                "responses": {
+                    "200": {
+                        "description": "Gateway is healthy",
+                        "schema": {
+                            "$ref": "#/definitions/gateway.HealthResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/products/search": {
+            "get": {
+                "description": "Routes HTTP requests to users or products microservices based on path prefix",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "routing"
+                ],
+                "summary": "Route request to microservice",
+                "responses": {
+                    "200": {
+                        "description": "Successfully routed request",
+                        "schema": {
+                            "$ref": "#/definitions/gateway.GatewayResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Unknown service path",
+                        "schema": {
+                            "$ref": "#/definitions/gateway.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/products/{id}": {
+            "get": {
+                "description": "Routes HTTP requests to users or products microservices based on path prefix",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "routing"
+                ],
+                "summary": "Route request to microservice",
+                "responses": {
+                    "200": {
+                        "description": "Successfully routed request",
+                        "schema": {
+                            "$ref": "#/definitions/gateway.GatewayResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Unknown service path",
+                        "schema": {
+                            "$ref": "#/definitions/gateway.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Routes HTTP requests to users or products microservices based on path prefix",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "routing"
+                ],
+                "summary": "Route request to microservice",
+                "responses": {
+                    "200": {
+                        "description": "Successfully routed request",
+                        "schema": {
+                            "$ref": "#/definitions/gateway.GatewayResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Unknown service path",
+                        "schema": {
+                            "$ref": "#/definitions/gateway.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Routes HTTP requests to users or products microservices based on path prefix",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "routing"
+                ],
+                "summary": "Route request to microservice",
+                "responses": {
+                    "200": {
+                        "description": "Successfully routed request",
+                        "schema": {
+                            "$ref": "#/definitions/gateway.GatewayResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Unknown service path",
+                        "schema": {
+                            "$ref": "#/definitions/gateway.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Routes HTTP requests to users or products microservices based on path prefix",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "routing"
+                ],
+                "summary": "Route request to microservice",
+                "responses": {
+                    "200": {
+                        "description": "Successfully routed request",
+                        "schema": {
+                            "$ref": "#/definitions/gateway.GatewayResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Unknown service path",
+                        "schema": {
+                            "$ref": "#/definitions/gateway.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/create": {
+            "post": {
+                "description": "Routes HTTP requests to users or products microservices based on path prefix",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "routing"
+                ],
+                "summary": "Route request to microservice",
+                "responses": {
+                    "200": {
+                        "description": "Successfully routed request",
+                        "schema": {
+                            "$ref": "#/definitions/gateway.GatewayResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Unknown service path",
+                        "schema": {
+                            "$ref": "#/definitions/gateway.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "description": "Routes HTTP requests to users or products microservices based on path prefix",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "routing"
+                ],
+                "summary": "Route request to microservice",
+                "responses": {
+                    "200": {
+                        "description": "Successfully routed request",
+                        "schema": {
+                            "$ref": "#/definitions/gateway.GatewayResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Unknown service path",
+                        "schema": {
+                            "$ref": "#/definitions/gateway.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Routes HTTP requests to users or products microservices based on path prefix",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "routing"
+                ],
+                "summary": "Route request to microservice",
+                "responses": {
+                    "200": {
+                        "description": "Successfully routed request",
+                        "schema": {
+                            "$ref": "#/definitions/gateway.GatewayResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Unknown service path",
+                        "schema": {
+                            "$ref": "#/definitions/gateway.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Routes HTTP requests to users or products microservices based on path prefix",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "routing"
+                ],
+                "summary": "Route request to microservice",
+                "responses": {
+                    "200": {
+                        "description": "Successfully routed request",
+                        "schema": {
+                            "$ref": "#/definitions/gateway.GatewayResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Unknown service path",
+                        "schema": {
+                            "$ref": "#/definitions/gateway.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Routes HTTP requests to users or products microservices based on path prefix",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "routing"
+                ],
+                "summary": "Route request to microservice",
+                "responses": {
+                    "200": {
+                        "description": "Successfully routed request",
+                        "schema": {
+                            "$ref": "#/definitions/gateway.GatewayResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Unknown service path",
+                        "schema": {
+                            "$ref": "#/definitions/gateway.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "gateway.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 404
+                },
+                "error": {
+                    "type": "string",
+                    "example": "unknown service for path: /unknown/path"
+                },
+                "path": {
+                    "type": "string",
+                    "example": "/unknown/path"
+                }
+            }
+        },
+        "gateway.GatewayResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Gateway received request"
+                },
+                "method": {
+                    "type": "string",
+                    "example": "GET"
+                },
+                "path": {
+                    "type": "string",
+                    "example": "/users/123"
+                },
+                "target_service": {
+                    "type": "string",
+                    "example": "users"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "example": "2025-08-01T12:30:00Z"
+                }
+            }
+        },
+        "gateway.HealthResponse": {
+            "type": "object",
+            "properties": {
+                "service": {
+                    "type": "string",
+                    "example": "gateway"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "ok"
+                },
+                "timestamp": {
+                    "type": "string",
+                    "example": "2025-08-01T12:30:00Z"
+                },
+                "version": {
+                    "type": "string",
+                    "example": "v0.1.0"
+                }
+            }
+        }
+    }
+}
