@@ -7,12 +7,18 @@ import (
 	"testing"
 
 	"services/gateway/internal/config"
+	"services/gateway/internal/metrics"
 	"services/gateway/internal/router"
 
 	"go.uber.org/zap"
+
+	"github.com/prometheus/client_golang/prometheus"
 )
 
 func TestGateway_ServeHTTP_UsersRequest(t *testing.T) {
+	registry := prometheus.NewRegistry()
+	metrics := metrics.NewMetricsWithRegistry(registry)
+
 	cfg := &config.Config{
 		Port:               "8080",
 		LogLevel:           "info",
@@ -23,7 +29,7 @@ func TestGateway_ServeHTTP_UsersRequest(t *testing.T) {
 	r := router.NewRouter()
 	logger := zap.NewNop()
 
-	gateway := NewGateway(cfg, r, logger)
+	gateway := NewGatewayWithMetrics(cfg, r, logger, metrics)
 
 	req := httptest.NewRequest("GET", "/users/123", nil)
 	w := httptest.NewRecorder()

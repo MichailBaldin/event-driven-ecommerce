@@ -14,8 +14,14 @@ type Metrics struct {
 }
 
 func NewMetrics() *Metrics {
+	return NewMetricsWithRegistry(prometheus.DefaultRegisterer)
+}
+
+func NewMetricsWithRegistry(reg prometheus.Registerer) *Metrics {
+	factory := promauto.With(reg)
+
 	return &Metrics{
-		RequestsTotal: promauto.NewCounterVec(
+		RequestsTotal: factory.NewCounterVec(
 			prometheus.CounterOpts{
 				Name: "gateway_http_requests_total",
 				Help: "Total number of HTTP requests processed by Gateway",
@@ -23,16 +29,16 @@ func NewMetrics() *Metrics {
 			[]string{"method", "endpoint", "status_code", "target_service"},
 		),
 
-		RequestDuration: promauto.NewHistogramVec(
+		RequestDuration: factory.NewHistogramVec(
 			prometheus.HistogramOpts{
 				Name:    "gateway_http_request_duration_seconds",
 				Help:    "HTTP request duration in seconds",
-				Buckets: prometheus.DefBuckets, // [.005, .01, .025, .05, .1, .25, .5, 1, 2.5, 5, 10]
+				Buckets: prometheus.DefBuckets,
 			},
 			[]string{"method", "endpoint", "target_service"},
 		),
 
-		RequestsActive: promauto.NewGauge(
+		RequestsActive: factory.NewGauge(
 			prometheus.GaugeOpts{
 				Name: "gateway_http_requests_active",
 				Help: "Number of HTTP requests currently being processed",
@@ -43,7 +49,6 @@ func NewMetrics() *Metrics {
 
 func (m *Metrics) RecordRequest(method, endpoint, statusCode, targetService string, duration time.Duration) {
 	m.RequestsTotal.WithLabelValues(method, endpoint, statusCode, targetService).Inc()
-
 	m.RequestDuration.WithLabelValues(method, endpoint, targetService).Observe(duration.Seconds())
 }
 

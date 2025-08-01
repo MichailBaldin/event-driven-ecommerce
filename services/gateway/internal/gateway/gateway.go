@@ -50,7 +50,18 @@ func NewGateway(cfg *config.Config, r *router.Router, logger *zap.Logger) *Gatew
 		router:  r,
 		logger:  logger,
 		version: "v0.1.0",
-		metrics: metrics.NewMetrics(),
+		metrics: metrics.NewMetrics(), // дефолтный registry
+	}
+}
+
+// NewGatewayWithMetrics создает Gateway с кастомными метриками (для тестов)
+func NewGatewayWithMetrics(cfg *config.Config, r *router.Router, logger *zap.Logger, m *metrics.Metrics) *Gateway {
+	return &Gateway{
+		config:  cfg,
+		router:  r,
+		logger:  logger,
+		version: "v0.1.0",
+		metrics: m,
 	}
 }
 

@@ -2,7 +2,7 @@
 
 # Local development
 gateway-dev:
-	cd services/gateway && go run cmd/api/main.go
+	cd services/gateway && PORT=8080 LOG_LEVEL=debug go run cmd/api/main.go
 
 # Docker commands  
 gateway-docker:
@@ -10,6 +10,9 @@ gateway-docker:
 
 gateway-docker-logs:
 	docker-compose logs -f gateway
+
+gateway-build:
+	cd services/gateway && go build -o ../../bin/gateway cmd/api/main.go
 
 # Testing
 gateway-test:
